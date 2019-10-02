@@ -11,7 +11,7 @@ RUN apt-get update && \
 COPY run.sh configure_chef.sh /usr/local/bin/
 
 VOLUME /var/log
-EXPOSE 80
+
 EXPOSE 443
 
 CMD ["run.sh"]
