@@ -16,7 +16,7 @@ else
 fi
 
 echo -e "\nRunning: 'chef-server-ctl reconfigure'. This step will take a few minutes..."
-chef-server-ctl reconfigure
+chef-server-ctl reconfigure --accept-license
 
 URL="http://127.0.0.1:8000/_status"
 CODE=1
