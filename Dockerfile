@@ -10,8 +10,10 @@ RUN apt-get update && \
 
 COPY run.sh configure_chef.sh /usr/local/bin/
 
+RUN chmod +x /usr/local/bin/run.sh && chmod +x /usr/local/bin/configure_chef.sh
+
 VOLUME /var/log
 
 EXPOSE 443
 
-CMD ["run.sh"]
+CMD ["/usr/local/bin/run.sh"]
