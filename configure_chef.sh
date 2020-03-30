@@ -4,20 +4,29 @@
 echo "nginx['enable_non_ssl']=false" > /etc/opscode/chef-server.rb
 
 if [[ -z $SSL_PORT ]]; then
+  echo -e "\nSetting SSL port to 443"
   echo "nginx['ssl_port']=443" >> /etc/opscode/chef-server.rb
 else
+  echo -e "\nSetting SSL port to $SSL_PORT"
   echo "nginx['ssl_port']=$SSL_PORT" >> /etc/opscode/chef-server.rb
 fi
 
 if [[ -z $CONTAINER_NAME ]]; then
+  echo -e "\nSetting server_name to chef-server"
   echo "nginx['server_name']=\"chef-server\"" >> /etc/opscode/chef-server.rb
 else
+  echo -e "\nSetting server_name to $CONTAINER_NAME "
   echo "nginx['server_name']=\"$CONTAINER_NAME\"" >> /etc/opscode/chef-server.rb
 fi
 
+echo -e "\nRunning: 'chef-server-ctl reconfigure --chef-license=accept'. This step will take a few minutes..."
+chef-server-ctl reconfigure --chef-license=accept
+
 if [[ -z $POSTGRES_SERVER ]]; then
+  echo -e "\nSetting postgresql listen_address to localhost"
   sed -i "s/.*default['private_chef']['postgresql']['listen_address'].*/default['private_chef']['postgresql']['listen_address'] = \"localhost\"/" /opt/opscode/embedded/cookbooks/private-chef/attributes/default.rb
 else
+  echo -e "\nSetting postgresql listen_address to $POSTGRES_SERVER"
   sed -i "s/.*default['private_chef']['postgresql']['listen_address'].*/default['private_chef']['postgresql']['listen_address'] = \"$POSTGRES_SERVER\"/" /opt/opscode/embedded/cookbooks/private-chef/attributes/default.rb
 fi
 
