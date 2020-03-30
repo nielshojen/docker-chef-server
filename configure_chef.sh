@@ -16,9 +16,9 @@ else
 fi
 
 if [[ -z $POSTGRES_SERVER ]]; then
-  echo "default['private_chef']['postgresql']['listen_address'] = \"localhost\"" >> /etc/opscode/chef-server.rb
+  sed -i "s/.*default['private_chef']['postgresql']['listen_address'].*/default['private_chef']['postgresql']['listen_address'] = \"localhost\"/" /opt/opscode/embedded/cookbooks/private-chef/attributes/default.rb
 else
-  echo "default['private_chef']['postgresql']['listen_address'] = \"$POSTGRES_SERVER\"" >> /etc/opscode/chef-server.rb
+  sed -i "s/.*default['private_chef']['postgresql']['listen_address'].*/default['private_chef']['postgresql']['listen_address'] = \"$POSTGRES_SERVER\"/" /opt/opscode/embedded/cookbooks/private-chef/attributes/default.rb
 fi
 
 echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6
