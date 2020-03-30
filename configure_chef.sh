@@ -15,6 +15,12 @@ else
   echo "nginx['server_name']=\"$CONTAINER_NAME\"" >> /etc/opscode/chef-server.rb
 fi
 
+if [[ -z $POSTGRES_SERVER ]]; then
+  echo "default['private_chef']['postgresql']['listen_address'] = \"localhost\"" >> /etc/opscode/chef-server.rb
+else
+  echo "default['private_chef']['postgresql']['listen_address'] = \"$POSTGRES_SERVER\"" >> /etc/opscode/chef-server.rb
+fi
+
 echo -e "\nRunning: 'chef-server-ctl reconfigure --chef-license=accept'. This step will take a few minutes..."
 chef-server-ctl reconfigure --chef-license=accept
 
