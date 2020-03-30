@@ -21,6 +21,8 @@ else
   echo "default['private_chef']['postgresql']['listen_address'] = \"$POSTGRES_SERVER\"" >> /etc/opscode/chef-server.rb
 fi
 
+echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6
+
 echo -e "\nRunning: 'chef-server-ctl reconfigure --chef-license=accept'. This step will take a few minutes..."
 chef-server-ctl reconfigure --chef-license=accept
 
