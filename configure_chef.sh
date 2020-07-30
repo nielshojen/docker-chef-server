@@ -31,7 +31,7 @@ else
 fi
 
 echo -e "\nRunning: 'chef-server-ctl reconfigure --chef-license=accept'. This step will take a few minutes...0"
-chef-server-ctl reconfigure --chef-license=accept
+chef-server-ctl reconfigure --chef-license=accept | tee reconfigure.log
 
 URL="http://127.0.0.1:8000/_status"
 CODE=1
