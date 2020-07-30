@@ -30,7 +30,10 @@ else
   sed -i "s/.*default['private_chef']['postgresql']['listen_address'].*/default['private_chef']['postgresql']['listen_address'] = \"$POSTGRES_SERVER\"/" /opt/opscode/embedded/cookbooks/private-chef/attributes/default.rb
 fi
 
-echo -e "\nRunning: 'chef-server-ctl reconfigure --chef-license=accept'. This step will take a few minutes..."
+echo -e "\nRunning: 'chef-server-ctl cleanse'. This will make us feal nice and clean...0"
+chef-server-ctl cleanse
+
+echo -e "\nRunning: 'chef-server-ctl reconfigure --chef-license=accept'. This step will take a few minutes...0"
 chef-server-ctl reconfigure --chef-license=accept
 
 URL="http://127.0.0.1:8000/_status"
