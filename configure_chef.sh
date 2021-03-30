@@ -3,6 +3,8 @@
 echo -e "\nRunning: 'chef-server-ctl cleanse'. This will make us feal nice and clean...0"
 chef-server-ctl cleanse
 
+mkdir -p /etc/opscode
+
 # Create chef-server.rb with variables
 echo "nginx['enable_non_ssl']=false" > /etc/opscode/chef-server.rb
 
@@ -24,10 +26,10 @@ fi
 
 if [[ -z $POSTGRES_SERVER ]]; then
   echo -e "\nSetting postgresql listen_address to localhost"
-  sed -i "s/^default\[\'private_chef\'\]\[\'postgresql\'\]\[\'listen_address\'\].*/default['private_chef']['postgresql']['listen_address']] = \"localhost\"/" /opt/opscode/embedded/cookbooks/private-chef/attributes/default.rb
+  sed -i "s/default\['private_chef']\['postgresql']\['listen_address'].*/default['private_chef']['postgresql']['listen_address'] = \"localhost\"/" /opt/opscode/embedded/cookbooks/private-chef/attributes/default.rb
 else
   echo -e "\nSetting postgresql listen_address to $POSTGRES_SERVER"
-  sed -i "s/^default\[\'private_chef\'\]\[\'postgresql\'\]\[\'listen_address\'\].*/default['private_chef']['postgresql']['listen_address'] = \"$POSTGRES_SERVER\"/" /opt/opscode/embedded/cookbooks/private-chef/attributes/default.rb
+  sed -i "s/default\['private_chef']\['postgresql']\['listen_address'].*/default['private_chef']['postgresql']['listen_address'] = \"$POSTGRES_SERVER\"/" /opt/opscode/embedded/cookbooks/private-chef/attributes/default.rb
 fi
 
 echo -e "\nRunning: 'chef-server-ctl reconfigure --chef-license=accept'. This step will take a few minutes...0"
