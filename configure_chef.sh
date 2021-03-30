@@ -3,6 +3,7 @@
 echo -e "\nRunning: 'chef-server-ctl cleanse'. This will make us feal nice and clean...0"
 chef-server-ctl cleanse
 
+mkdir -p /etc/init
 mkdir -p /etc/opscode
 
 # Create chef-server.rb with variables
